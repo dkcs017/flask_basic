@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h3>Routes</h3>
+
+<div class="row onePadding">
+    <div class="col-md-12 col-sm-12">
+        <div class="table-responsive">
+            <table class="table table-condensed">
+                <tr>
+                    <th>No.</th>
+                    <th>Route</th>
+                    <th>Methods</th>
+
+                </tr>
+                {% for route in routes['routes'] %}
+                    <tr>
+                        <td>{{routes['routes'].index(route)+1}}</td>
+                        <td>{{route['route']}}</td>
+                        <td>{{route['methods']}}</td>
+
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

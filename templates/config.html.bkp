@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% from "macros.html" import render_field %}
+
+{% block content %}
+
+<h3>Insert Config params</h3>
+
+
+<form class="form-horizontal" method="post">
+    {{ render_field(form.broker_host) }}
+    <br>
+    {{ render_field(form.broker_port) }}
+    <input type="submit" value="Insert">
+</form>
+
+{% with messages = get_flashed_messages() %}
+   {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-success alert-dismissable fade in">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>
+                {{ message }}
+            </strong>
+        </div>
+
+<!--<script>
+var messages = {{ messages | safe }};
+      for (var i=0; i<messages.length; i++) {
+        alert(messages[i]);
+      }
+</script>
+-->
+
+      {% endfor %}
+   {% endif %}
+{% endwith %}
+
+{% endblock %}
