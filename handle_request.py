@@ -1,8 +1,9 @@
-from flask import Flask, request, make_response, jsonify
+from flask import Flask, request, make_response, jsonify, logging
 
 import json
 
 app = Flask(__name__)
+logger = logging.create_logger(app)
 
 user_map = {'EUREXEXCSPV':{'F001INQ':0,'F001MAI':3},
             'EUREXMBRSPV':{'F001INQ':3,'F001MAI':2},
@@ -16,6 +17,15 @@ def list_routes():
 		response.update({route.endpoint : route.rule})
 	print response
 	return make_response(jsonify(routes=response), 200)
+
+@app.after_request
+def remote_user_info(response):
+	remote_ip = request.remote_addr
+	remote_user_agent = request.user_agent.platform
+	logger.info("Remote ip: {ip} and Remote user agent: {user_agent}".format(ip = remote_ip, user_agent = remote_user_agent))
+	return response
+	
+
 
 
 @app.route('/layer/settings',methods = ['POST'])
