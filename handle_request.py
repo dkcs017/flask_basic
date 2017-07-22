@@ -1,6 +1,6 @@
-from flask import Flask, request, make_response, jsonify, logging
-
 import json
+
+from flask import Flask, request, make_response, jsonify, logging
 
 app = Flask(__name__)
 logger = logging.create_logger(app)
@@ -24,9 +24,6 @@ def remote_user_info(response):
 	remote_user_agent = request.user_agent.platform
 	logger.info("Remote ip: {ip} and Remote user agent: {user_agent}".format(ip = remote_ip, user_agent = remote_user_agent))
 	return response
-	
-
-
 
 @app.route('/layer/settings',methods = ['POST'])
 def view_settings():
@@ -87,7 +84,7 @@ def update_settings():
                 entitlement = {}
                 for priv in json_request['privList']:
                     try:
-			user_map[json_request['username']][priv] = json_request['privList'][priv]
+                        user_map[json_request['username']][priv] = json_request['privList'][priv]
                         entitlement.update({priv:privilege_map[priv]})
                     except KeyError as ke:
                         entitlement.update({priv:'unknown'})
